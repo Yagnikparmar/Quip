@@ -1,0 +1,126 @@
+features:
+  custom user registration,custom user login, custom user logout
+  customized ur,customized login, customized logout, customized form creation, django forms,customized setting etc.
+   
+# djnago rest-framework is different like react.js and next.js or flask and flask.api
+  rest-framwork is for rest api and django is for full apllication    
+  
+1)creating new .venv
+  installing django
+  pip freeze > requirements.txt (its for managing and sharing dependencies easily threw another device)
+  django-admin startproject myproject
+  python manage.py makemigrations
+  python manage.py migrate for removing admin,auth... errors
+2)admin commands:
+  python manage.py createsuperuser
+  configuration in settings.py
+  import os
+  
+  MEDIA_URL='/media/'
+  MEDIA_ROOT= os.path.join(BASE_DIR,"media")
+  
+  STATIC_URL = 'static/'
+  STATICFILES_DIRS = [os.path.join(BASE_DIR,"static")]
+  
+  goto urls.py and add  
+  from django.conf import settings   
+  from django.conf.urls.static import static
+  + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+  
+  (Don't forget to create static folder in root project level directory )
+  
+3)Create new app
+  python manage.py startapp myapp and inform to setting.py
+  add a view and give path in urls.py after creating url file in app
+  and from django.urls import path.
+  
+  create templates folder in app directory and go to settings.py ->'DIRS': [os.path.join(BASE_DIR,'templates')]
+  
+  go to urls.py in project file
+  from django.urls import path,include and add path of app: path('tweet/',include('tweet.urls')),
+  
+4)Layout/base.html file in new root project level directory called templates(creating)
+  we will use bootstrap framwork for css 
+  inject this cdn link for css <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQ48NawqI4rZtyXOp6UuNfne1fTj0bVRz+zTzt/OjvpRmC3/odwhcW7yy" crossorigin="anonymous">
+  bootstrap is now enabled
+  Hunt navigation code on bootstrap website and paste it in Layout.py file
+  
+5)creating models:
+  from djnago.contrib.auth.models import User #username,email anything you can change threw this model
+  register in admin : from .models import Tweet , admin.site.register(Tweet)
+  installing pillow library : python -m pip install Pillow --> pip freeze > requirements.txt
+  python manage.py makemigrations
+  python manage.py migrate
+  
+6)creating forms.py:
+  from django import forms
+  from .models import Tweet and see that file
+
+7)creating views:so you can want to see on what to render when pressing something (logic)
+
+# Project flow's: 
+1)Injecting views logic in templates threw django templating engine 
+ inject views threw django templates in html(create html files in app templates)
+ go to first tweet.list.html and write code 
+ give url path making tweet_list as home page of tweet application
+ edit other file form.html -> create form using django -> add {% csrf_token %} needed in django forms for security purpose
+ edit tweet_confirm_delete.html 
+
+2) rout protection,user authentication:
+for user authentication: views -> from django.contrib.auth.decorators import login_required 
+->@login_required (decorators) ⬆️ function
+
+3) registration form:
+go to forms.py: 
+  it's not simple form its django in-buit registration form 
+  from django.contrib.auth.forms import UserCreationForm
+  from django.contrib.auth.models import User -> create form 
+go to views: before make regestration folder in root templates -> create html files
+  make function for form registration
+  import userregistration 
+  from django.contrib.auth import login
+go to app urls.py:
+  make path
+go to seetings.py
+  LOGIN_URL = "/accounts/login"
+  LOGIN_REDIRECT_URL = "/tweet/"
+  LOGOUT_REDIRECT_URL = "/tweet/"
+go to urls.py
+  from django.contrib.auth.urls import views as auth_views
+  add url for accounts
+  go to templates and edit html files
+
+add feature of user can only see edit and delete button oh his tweets only
+go to tweet_list add if statement
+
+4) Logout form:
+go to layout.html and add button remember in logout we use form to logout not only button
+we use django inbuilt features for registration as of above
+
+all done! congratulation!!!
+
+# Scaling project :
+
+1) Added profile feature that only shows users tweets
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
