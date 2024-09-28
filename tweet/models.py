@@ -8,7 +8,11 @@ class Tweet(models.Model):
     photo = models.ImageField(upload_to='photos/',blank=True,null=True)
     created_at= models.DateTimeField(auto_now_add=True)
     updated_at= models.DateTimeField(auto_now=True)
-    
+    likes=models.ManyToManyField(User,related_name="likeunlike",blank=True)
+
+    def number_of_likes(self):
+        return self.likes.count()
+
     def __str__(self):
         return f'{self.user.username}-{self.text[:10]}'
     
