@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Twitter
+{% endblock %}
+
+{% block content %} 
+
+<h2>Search Results for "{{ query }}"</h2>
+
+{% if results %}
+    <ul>
+        {% for result in results %}
+        <li>{{ result.text }} - Posted by {{ result.user.username }}    </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No results found.</p>
+{% endif %}
+</ul>
+
+{% endblock %}
+
