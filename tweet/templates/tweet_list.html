@@ -18,6 +18,14 @@ Twitter
      <div class="card-body">
        <h5 class="card-title">{{tweet.user.username}}</h5>
        <p class="card-text">{{tweet.text}}</p>
+       <p class="card-text">{{tweet.created_at}} - {{tweet.number_of_likes}} Likes -
+        {% if user in tweet.likes.all %}
+         <a href="{% url 'tweet_like' tweet.id %}">UnLike</a>
+        {% else %}
+         <a href="{% url 'tweet_like' tweet.id %}">Like</a>
+        {% endif %}
+       </p>
+
        {% if tweet.user == user %}
        <a href="{% url 'tweet_edit' tweet.id %}" class="btn btn-primary">Edit</a>
        <a href="{% url 'tweet_delete' tweet.id %}" class="btn btn-primary btn-danger">Delete</a>
